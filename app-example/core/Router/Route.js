@@ -1,6 +1,6 @@
 const resolve = (handler) => {
     let handlerObj = handler.split('@'),
-        handlerClass = require('../app/Http/Controllers/' + handlerObj[0]);
+        handlerClass = require.main.require('./app/Http/Controllers/' + handlerObj[0]);
 
     return (new handlerClass())[handlerObj[1]]
 };

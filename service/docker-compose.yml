@@ -1,0 +1,33 @@
+version: '2'
+services:
+  node:
+    build:
+      context: ../
+      dockerfile: ./service/docker/nodejs/Dockerfile
+    container_name: node
+    tty: true
+    volumes:
+      - ../:/var/www
+    working_dir: /var/www
+    environment:
+      NODE_ENV: 'development'
+    ports:
+      - 3000:3000
+    links:
+      - elastic:elastic
+
+  elastic:
+    build:
+      context: ../
+      dockerfile: ./service/docker/elastic/Dockerfile
+    container_name: elastic
+    mem_limit: 1g
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    tty: true
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - 9200:9200

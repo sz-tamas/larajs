@@ -1,0 +1,16 @@
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/important-settings.html
+
+cluster.name: "searcher-dev"
+network.host: 0.0.0.0
+bootstrap.memory_lock: true
+
+node.name: ${HOSTNAME}
+
+path:
+  logs: /var/log/elasticsearch
+  data: /var/data/elasticsearch
+
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+# Details: https://github.com/elastic/elasticsearch/pull/17288
+discovery.zen.minimum_master_nodes: 1
